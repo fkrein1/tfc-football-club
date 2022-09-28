@@ -1,5 +1,5 @@
 import { compareSync } from 'bcryptjs';
-import {sign} from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import { IUserLogin } from '../interfaces/IUser';
 import UserModel from '../models/UserModel';
 
