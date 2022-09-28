@@ -1,14 +1,15 @@
 import * as express from 'express';
+import UserController from './controllers/UserController';
+import errorHandler from './middlewares/errorHandler';
+import validateLogin from './middlewares/validateLogin';
 
+const userController = new UserController();
 class App {
   public app: express.Express;
 
   constructor() {
     this.app = express();
-
     this.config();
-
-    // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
   }
 
@@ -22,6 +23,9 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+    this.app.post('/login', validateLogin, userController.login);
+
+    this.app.use(errorHandler);
   }
 
   public start(PORT: string | number):void {

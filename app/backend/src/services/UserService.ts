@@ -1,8 +1,15 @@
+import { IUserLogin } from '../interfaces/IUser';
 import UserModel from '../models/UserModel';
 
 export default class UserService {
-  constructor(private user: UserModel = new UserModel()) {}
-  public get() {
-    this.user.model.create();
+  constructor(private model: UserModel = new UserModel()) {}
+
+  async login(user: IUserLogin) {
+    const validUser = await this.model.findOne(user.email);
+    if (!validUser) {
+      throw Error('Incorrect email or password');
+    }
+    const token = 'dsad2dedsad';
+    return token;
   }
 }
