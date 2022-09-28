@@ -1,35 +1,31 @@
-// import { expect } from "chai";
-// import { Request, Response } from 'express';
-// import UserController from '../controllers/UserController';
-// import UserService from '../services/UserService';
-// import Sinon from "sinon";
+import * as chai from 'chai';
+import { app } from '../app';
+import UserModel from '../models/UserModel';
+import { login, user } from './mocks/users';
+// @ts-ignore
+import chaiHttp = require('chai-http')
+// @ts-ignore
+import Sinon = require('sinon');
 
 
-// describe("UserController.ts", () => {
-//   const tokenMockJSON = {
-//     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-//   }
-  
-//   const tokenMock = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
-  
-//   describe("gera o token sucesso", () => {
-//     const res = {} as Request;
-//     const req = {} as Response;
-//     const controller = new UserController()
+chai.use(chaiHttp);
+const { request, expect } = chai;
+const userModel = new UserModel();
 
-//     beforeAll(() => {
-//       res.status = Sinon.stub().returns(res);
-//       res.json = Sinon.stub().returns();
-//       Sinon.stub(UserService, 'login').resolves(tokenMock);
-//     });
+describe('Test login endpoint', () => {
+  describe('Valid Login information', () => {
+    before(async () => {
+      Sinon.stub(userModel, 'findOne').resolves(user.validUser)
+    })
+    after(async () => {
+      (userModel.findOne as sinon.SinonStub).restore();
+    });
+    
+    it('should return response on call', async () => {
+      const response = await request(app).post('/login').send(login.validUser);
+      expect(response).to.have.status(200)
+      expect(response).to.have.property('token')
+    })
 
-//     afterAll(() => {
-//       controller.login.restore();
-//     });
-
-//     it("retorna status 200 e tokem com os produtos", async () => {
-//       await userController.login(req, res);
-//       expect(res.status.calledWith(200)).to.be.equal(true);
-//       expect(res.json.calledWith(result)).to.be.equal(true);
-//     });
-//   });
+  })
+})

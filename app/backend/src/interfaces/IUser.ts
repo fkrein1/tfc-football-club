@@ -6,5 +6,5 @@ export interface IUserLogin {
 export interface IUser extends IUserLogin {
   id: number;
   username: string;
-  role: number;
+  role: string;
 }
