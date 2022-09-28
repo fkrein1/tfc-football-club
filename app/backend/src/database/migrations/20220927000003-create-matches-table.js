@@ -9,7 +9,7 @@ module.exports = {
       },
       homeTeam: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
         field: "home_team",
@@ -25,7 +25,7 @@ module.exports = {
       },
       awayTeam: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
         field: "away_team",
