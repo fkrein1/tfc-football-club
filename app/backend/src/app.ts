@@ -1,9 +1,7 @@
 import * as express from 'express';
-import UserController from './controllers/UserController';
 import errorHandler from './middlewares/errorHandler';
-import validateLogin from './middlewares/validateLogin';
+import login from './routes/login.route';
 
-const userController = new UserController();
 class App {
   public app: express.Express;
 
@@ -23,8 +21,7 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
-    this.app.post('/login', validateLogin, userController.login);
-
+    this.app.use(login);
     this.app.use(errorHandler);
   }
 

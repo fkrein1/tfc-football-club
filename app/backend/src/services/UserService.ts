@@ -6,6 +6,7 @@ export default class UserService {
 
   async login(user: IUserLogin) {
     const validUser = await this.model.findOne(user.email);
+    console.log(validUser);
     if (!validUser) {
       throw Error('Incorrect email or password');
     }
