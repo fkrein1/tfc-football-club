@@ -1,3 +1,5 @@
+import { compareSync } from 'bcryptjs';
+import {sign} from 'jsonwebtoken';
 import { IUserLogin } from '../interfaces/IUser';
 import UserModel from '../models/UserModel';
 
@@ -6,11 +8,14 @@ export default class UserService {
 
   async login(user: IUserLogin) {
     const validUser = await this.model.findOne(user.email);
-    console.log(validUser);
     if (!validUser) {
       throw Error('Incorrect email or password');
     }
-    const token = 'dsad2dedsad';
+    const validPassword = compareSync(user.password, validUser.password);
+    if (!validPassword) {
+      throw Error('Incorrect email or password');
+    }
+    const token = sign({ data: user }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
     return token;
   }
 }
