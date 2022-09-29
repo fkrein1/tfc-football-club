@@ -1,6 +1,7 @@
 import { compareSync } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { IUserLogin } from '../interfaces/IUser';
+import { IUserJwt } from '../interfaces/IUserJwt';
 import UserModel from '../models/UserModel';
 
 export default class UserService {
@@ -17,5 +18,12 @@ export default class UserService {
     }
     const token = sign({ data: user }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
     return token;
+  }
+
+  async validate(token: string | undefined) {
+    if (!token) throw Error('Missing authorization token');
+    const { data } = <IUserJwt>verify(token, process.env.JWT_SECRET as string);
+    const user = await this.model.findOne(data.email);
+    return user?.role;
   }
 }
