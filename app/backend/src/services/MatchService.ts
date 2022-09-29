@@ -8,4 +8,9 @@ export default class MatchService {
     const matches = await this.model.findAll();
     return matches;
   }
+
+  async findByProgress(progress: boolean) {
+    const matches = await this.model.findByProgress(progress);
+    return matches;
+  }
 }
