@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import * as Joi from 'joi';
 import { IUserLogin } from '../interfaces/IUser';
+import CustomError from './CustomError';
 
 const login = Joi.object({
   email: Joi.string().email().required(),
@@ -12,7 +13,7 @@ const validateLogin = (req: Request, _res: Response, next: NextFunction) => {
 
   const { error } = login.validate(user);
   if (error) {
-    throw Error('All fields must be filled');
+    throw new CustomError(400, 'All fields must be filled');
   }
   next();
 };
