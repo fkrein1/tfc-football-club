@@ -8,7 +8,7 @@ const login = Joi.object({
   password: Joi.string().required(),
 });
 
-const validateLogin = (req: Request, _res: Response, next: NextFunction) => {
+const validateLoginSchema = (req: Request, _res: Response, next: NextFunction) => {
   const user: IUserLogin = req.body;
 
   const { error } = login.validate(user);
@@ -18,4 +18,4 @@ const validateLogin = (req: Request, _res: Response, next: NextFunction) => {
   next();
 };
 
-export default validateLogin;
+export default validateLoginSchema;

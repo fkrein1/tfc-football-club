@@ -56,6 +56,4 @@ describe('Test team endpoint', () => {
       expect(response.body.message).to.eq('Invalid team id')
     })
   })
-
-
 })

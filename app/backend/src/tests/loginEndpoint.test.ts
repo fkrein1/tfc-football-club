@@ -1,7 +1,9 @@
 import * as chai from 'chai';
+import * as jwt from 'jsonwebtoken';
 import { app } from '../app';
 import User from '../database/models/User';
 import { login, user } from './mocks/users';
+
 // @ts-ignore
 import chaiHttp = require('chai-http')
 // @ts-ignore
@@ -69,6 +71,43 @@ describe('Test login endpoint', () => {
       const response = await request(app).post('/login').send(login.invalidPassword);
       expect(response).to.have.status(401)
       expect(response.body.message).to.eq('Incorrect email or password')
+    })
+  })
+
+  describe('Invalid token', () => {
+    before(async () => {
+      Sinon.stub(User, 'findOne').resolves()
+      Sinon.stub(jwt, 'verify').resolves()
+    })
+    after(async () => {
+      (User.findOne as sinon.SinonStub).restore();
+      (jwt.verify as sinon.SinonStub).restore();
+    });
+    
+    it('should return status 401 and correct message', async () => {
+      const response = await request(app).get('/login/validate').send();
+      expect(response).to.have.status(401)
+      expect(response.body.message).to.eql({message: 'Token must be a valid token'})
+    })
+  })
+
+  describe('Validate token', () => {
+    before(async () => {
+      Sinon.stub(User, 'findOne').resolves(user.validUser as User)
+      Sinon.stub(jwt, 'verify').resolves({ data: login.validUser})
+    })
+    after(async () => {
+      (User.findOne as sinon.SinonStub).restore();
+      (jwt.verify as sinon.SinonStub).restore();
+    });
+    
+    it('should return status 200 and role as user', async () => {
+      const response = await request(app)
+        .get('/login/validate')
+        .auth('authorization', 'xablau')
+        .send();
+      expect(response).to.have.status(200)
+      expect(response.body.message).to.eql({role: 'user'})
     })
   })
 })

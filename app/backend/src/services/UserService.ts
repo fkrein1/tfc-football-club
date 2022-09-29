@@ -1,5 +1,5 @@
 import { compareSync } from 'bcryptjs';
-import { sign, verify } from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { IUserLogin } from '../interfaces/IUser';
 import { IUserJwt } from '../interfaces/IUserJwt';
 import CustomError from '../middlewares/CustomError';
@@ -17,13 +17,13 @@ export default class UserService {
     if (!validPassword) {
       throw new CustomError(401, 'Incorrect email or password');
     }
-    const token = sign({ data: user }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
+    const token = jwt.sign({ data: user }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
     return token;
   }
 
   async validate(token: string | undefined) {
-    if (!token) throw new CustomError(400, 'All fields must be filled');
-    const { data } = <IUserJwt>verify(token, process.env.JWT_SECRET as string);
+    if (!token) throw new CustomError(401, 'Token must be a valid token');
+    const { data } = <IUserJwt>jwt.verify(token, process.env.JWT_SECRET as string);
     const user = await this.model.findOne(data.email);
     return user?.role;
   }
