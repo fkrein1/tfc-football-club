@@ -2,7 +2,7 @@ import Team from '../database/models/Team';
 import { ITeam } from '../interfaces/ITeam';
 
 export default class TeamModel {
-  private _model = Team;
+  constructor(private _model: typeof Team = Team) {}
 
   async findAll(): Promise<ITeam[]> {
     const result = await this._model.findAll();
