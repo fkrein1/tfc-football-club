@@ -5,6 +5,6 @@ import validateLogin from '../middlewares/validateLogin';
 const userController = new UserController();
 const route = Router();
 
-route.post('/login', validateLogin, (req, res) => userController.login(req, res));
+route.post('/login', validateLogin, (req, res, next) => userController.login(req, res, next));
 
 export default route;

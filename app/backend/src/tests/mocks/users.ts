@@ -33,4 +33,8 @@ export const login = {
     email: 'user@xablaucom',
     password: 'senha_invalida',
   },
+  invalidUser: {
+    email: 'user@xablau.com',
+    password: 'senha_invalida',
+  },
 }
