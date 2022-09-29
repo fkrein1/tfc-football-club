@@ -2,6 +2,7 @@ import * as express from 'express';
 import errorHandler from './middlewares/errorHandler';
 import login from './routes/login.route';
 import team from './routes/team.route';
+import match from './routes/match.route';
 
 class App {
   public app: express.Express;
@@ -23,6 +24,7 @@ class App {
     this.app.use(express.json());
     this.app.use(accessControl);
     this.app.use(login);
+    this.app.use(match);
     this.app.use(team);
     this.app.use(errorHandler);
   }
