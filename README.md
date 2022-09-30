@@ -1,16 +1,18 @@
-# 🚧 README em construção 🚧
+# TFC Football Club
 
-<!-- Olá, Tryber!
+An application to keep track of the Brazilian national football championship.
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+  - Built with Node, Express, Sequelize, Typescript, React and Docker  
+  - 80%+ test coverage with Mocha, ChaiHTTP, and Sinnon
+  - Model, Service, Controller and OOP architecture
+  
+To run locally clone the repository and run the following commands:
+<br>
 
-É essencial que você preencha esse documento por conta própria, ok?
+```
+$ npm run compose:up
+```
+<br>
+<br>
+<img src="./tfc.png"/>
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
-
--->
