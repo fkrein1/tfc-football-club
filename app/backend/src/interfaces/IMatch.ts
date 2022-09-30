@@ -11,4 +11,10 @@ export interface IMatchInput extends IMatchScore{
 export interface IMatch extends IMatchInput {
   id: number;
   inProgress: boolean
+  teamHome: {
+    teamName: string
+  };
+  teamAway: {
+    teamName: string
+  }
 }

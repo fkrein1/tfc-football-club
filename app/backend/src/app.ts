@@ -1,8 +1,9 @@
 import * as express from 'express';
 import errorHandler from './middlewares/errorHandler';
+import leaderboard from './routes/leaderboard.route';
 import login from './routes/login.route';
-import team from './routes/team.route';
 import match from './routes/match.route';
+import team from './routes/team.route';
 
 class App {
   public app: express.Express;
@@ -26,6 +27,7 @@ class App {
     this.app.use(login);
     this.app.use(match);
     this.app.use(team);
+    this.app.use(leaderboard);
     this.app.use(errorHandler);
   }
 

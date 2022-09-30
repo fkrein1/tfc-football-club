@@ -8,17 +8,17 @@ import TeamModel from '../models/TeamModel';
 
 export default class MatchService {
   constructor(
-    private model: MatchModel = new MatchModel(),
+    private matchModel: MatchModel = new MatchModel(),
     private teamModel: TeamModel = new TeamModel(),
   ) {}
 
   async findAll() {
-    const matches = await this.model.findAll();
+    const matches = await this.matchModel.findAll();
     return matches;
   }
 
   async findByProgress(progress: boolean) {
-    const matches = await this.model.findByProgress(progress);
+    const matches = await this.matchModel.findByProgress(progress);
     return matches;
   }
 
@@ -32,12 +32,12 @@ export default class MatchService {
     if (!homeTeam || !awayTeam) {
       throw new CustomError(404, 'There is no team with such id!');
     }
-    const newMatch = await this.model.create(match);
+    const newMatch = await this.matchModel.create(match);
     return newMatch;
   }
 
   async updateProgress(id: number): Promise<void> {
-    const result = await this.model.updateProgress(id);
+    const result = await this.matchModel.updateProgress(id);
     if (result !== 1) {
       throw new CustomError(404, 'Update unsuccessful');
     }
@@ -45,7 +45,7 @@ export default class MatchService {
 
   async updateScore(score: IMatchScore, id: number): Promise<void> {
     MatchService.validateScoreSchema(score);
-    const result = await this.model.updateScore(score, id);
+    const result = await this.matchModel.updateScore(score, id);
     if (result !== 1) {
       throw new CustomError(404, 'Update unsuccessful');
     }
