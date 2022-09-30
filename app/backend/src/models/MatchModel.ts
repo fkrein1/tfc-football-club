@@ -36,4 +36,12 @@ export default class MatchModel {
     });
     return result;
   }
+
+  async updateProgress(id: number):Promise<number> {
+    const [result] = await this._model.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+    return result;
+  }
 }

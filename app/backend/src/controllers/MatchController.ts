@@ -27,4 +27,14 @@ export default class MatchController {
       next(error);
     }
   };
+
+  updateProgress: RequestHandler = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      await this.service.updateProgress(Number(id));
+      return res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

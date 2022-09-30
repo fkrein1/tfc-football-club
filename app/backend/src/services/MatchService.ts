@@ -36,6 +36,13 @@ export default class MatchService {
     return newMatch;
   }
 
+  async updateProgress(id: number): Promise<void> {
+    const result = await this.model.updateProgress(id);
+    if (result !== 1) {
+      throw new CustomError(404, 'Update unsuccessful');
+    }
+  }
+
   static validateMatchSchema(match: IMatchInput):void {
     const matchSchema = Joi.object({
       homeTeam: Joi.number().required(),

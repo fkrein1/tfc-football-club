@@ -11,5 +11,10 @@ route.post(
   validateAuthToken,
   (req, res, next) => matchController.create(req, res, next),
 );
+route.patch(
+  '/matches/:id/finish',
+  validateAuthToken,
+  (req, res, next) => matchController.updateProgress(req, res, next),
+);
 
 export default route;
