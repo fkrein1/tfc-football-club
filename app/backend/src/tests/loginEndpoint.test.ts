@@ -90,25 +90,25 @@ describe('Test login endpoint', () => {
     })
   })
 
-  // describe('Valid token', () => {
-  //   before(() => {
-  //     Sinon.stub(jwt, 'verify').resolves({ data: login.validUser})
-  //     Sinon.stub(User, 'findOne').resolves(user.validUser as User)
-  //   })
-  //   after(() => {
-  //     (jwt.verify as sinon.SinonStub).restore();
-  //     (User.findOne as sinon.SinonStub).restore();
-  //   });
+  describe('Valid token', () => {
+    before(() => {
+      Sinon.stub(jwt, 'verify').resolves({ data: login.validUser})
+      Sinon.stub(User, 'findOne').resolves(user.validUser as User)
+    })
+    after(() => {
+      (jwt.verify as sinon.SinonStub).restore();
+      (User.findOne as sinon.SinonStub).restore();
+    });
     
-  //   it('should return status 200 and role as user', async () => {
-  //     const response = await request(app)
-  //     .get('/login/validate')
-  //     .set('headers.authorization', 'headers.r3fsdfsdfsf2342')
-  //     .send();
-  //     expect(response).to.have.status(401)
-  //     expect(response.body.message).to.eql({role: user.validUser.role})
-  //     console.log(response)
+    it('should return status 200 and role as user', async () => {
+      const response = await request(app)
+      .get('/login/validate')
+      .set('authorization', 'r3fsdfsdfsf2342')
+      .send();
+      expect(response).to.have.status(401)
+      expect(response.body.message).to.eql({role: user.validUser.role})
+      console.log(response)
 
-  //   })
-  // })
+    })
+  })
 })

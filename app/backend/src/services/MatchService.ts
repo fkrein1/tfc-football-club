@@ -51,7 +51,7 @@ export default class MatchService {
     }
   }
 
-  static validateMatchSchema(match: IMatchInput):void {
+  private static validateMatchSchema(match: IMatchInput):void {
     const matchSchema = Joi.object({
       homeTeam: Joi.number().required(),
       awayTeam: Joi.number().required(),
@@ -65,7 +65,7 @@ export default class MatchService {
     }
   }
 
-  static validateScoreSchema(match: IMatchScore):void {
+  private static validateScoreSchema(match: IMatchScore):void {
     const scoreSchema = Joi.object({
       homeTeamGoals: Joi.number().required(),
       awayTeamGoals: Joi.number().required(),

@@ -30,7 +30,7 @@ export default class UserService {
     return user?.role;
   }
 
-  static validateLoginSchema(user: IUserLogin): void {
+  private static validateLoginSchema(user: IUserLogin): void {
     const loginSchema = Joi.object({
       email: Joi.string().email().required(),
       password: Joi.string().required(),

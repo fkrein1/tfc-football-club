@@ -34,16 +34,9 @@ export default class LeaderboardService {
     return mapAndFiterGames;
   }
 
-  static mapAndFilterGames(games: ILeaderboard[]) {
+  private static mapAndFilterGames(games: ILeaderboard[]) {
     return games.map((game) => ({
-      name: game.name,
-      totalPoints: game.totalPoints,
-      totalGames: game.totalGames,
-      totalVictories: game.totalVictories,
-      totalDraws: game.totalDraws,
-      totalLosses: game.totalLosses,
-      goalsFavor: game.goalsFavor,
-      goalsOwn: game.goalsOwn,
+      ...game,
       goalsBalance: game.goalsFavor - game.goalsOwn,
       efficiency: ((game.totalPoints / (game.totalGames * 3)) * 100).toFixed(2),
     })).sort((a, b) => (
@@ -55,11 +48,11 @@ export default class LeaderboardService {
     ));
   }
 
-  static accumulateGames(games: ILeaderboard[]) {
+  private static accumulateGames(games: ILeaderboard[]) {
     const leaderBoard = [] as ILeaderboard[];
     games.forEach((game) => {
       const index = leaderBoard.findIndex((accGame) => accGame.name === game.name);
-      if (index === -1 && game) leaderBoard.push({ ...game, totalGames: 1 });
+      if (index === -1) leaderBoard.push({ ...game, totalGames: 1 });
       else {
         leaderBoard[index].totalPoints += game.totalPoints;
         leaderBoard[index].totalVictories += game.totalVictories;
@@ -73,7 +66,7 @@ export default class LeaderboardService {
     return leaderBoard;
   }
 
-  static generetaAwayGames(games: IMatch[]) {
+  private static generetaAwayGames(games: IMatch[]) {
     return games.filter((game) => !game.inProgress).map((game) => {
       let score = { point: 0, tye: 0, loss: 0, win: 0 };
       if (game.awayTeamGoals === game.homeTeamGoals) {
