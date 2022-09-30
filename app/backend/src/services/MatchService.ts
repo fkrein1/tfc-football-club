@@ -1,6 +1,6 @@
 import * as Joi from 'joi';
 import CustomError from '../interfaces/CustomError';
-import { IMatchInput } from '../interfaces/IMatch';
+import { IMatchInput, IMatchScore } from '../interfaces/IMatch';
 import MatchModel from '../models/MatchModel';
 import TeamModel from '../models/TeamModel';
 
@@ -43,6 +43,14 @@ export default class MatchService {
     }
   }
 
+  async updateScore(score: IMatchScore, id: number): Promise<void> {
+    MatchService.validateScoreSchema(score);
+    const result = await this.model.updateScore(score, id);
+    if (result !== 1) {
+      throw new CustomError(404, 'Update unsuccessful');
+    }
+  }
+
   static validateMatchSchema(match: IMatchInput):void {
     const matchSchema = Joi.object({
       homeTeam: Joi.number().required(),
@@ -52,6 +60,17 @@ export default class MatchService {
       inProgress: Joi.any(),
     });
     const { error } = matchSchema.validate(match);
+    if (error) {
+      throw new CustomError(400, 'All fields must be filled');
+    }
+  }
+
+  static validateScoreSchema(match: IMatchScore):void {
+    const scoreSchema = Joi.object({
+      homeTeamGoals: Joi.number().required(),
+      awayTeamGoals: Joi.number().required(),
+    });
+    const { error } = scoreSchema.validate(match);
     if (error) {
       throw new CustomError(400, 'All fields must be filled');
     }

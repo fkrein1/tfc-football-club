@@ -37,4 +37,15 @@ export default class MatchController {
       next(error);
     }
   };
+
+  updateScore: RequestHandler = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const score = req.body;
+      await this.service.updateScore(score, Number(id));
+      return res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

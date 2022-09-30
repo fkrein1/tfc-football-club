@@ -17,4 +17,10 @@ route.patch(
   (req, res, next) => matchController.updateProgress(req, res, next),
 );
 
+route.patch(
+  '/matches/:id',
+  validateAuthToken,
+  (req, res, next) => matchController.updateScore(req, res, next),
+);
+
 export default route;

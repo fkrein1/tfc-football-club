@@ -1,6 +1,6 @@
 import Match from '../database/models/Match';
 import Team from '../database/models/Team';
-import { IMatch, IMatchInput } from '../interfaces/IMatch';
+import { IMatch, IMatchInput, IMatchScore } from '../interfaces/IMatch';
 
 export default class MatchModel {
   constructor(private _model: typeof Match = Match) {}
@@ -40,6 +40,14 @@ export default class MatchModel {
   async updateProgress(id: number):Promise<number> {
     const [result] = await this._model.update(
       { inProgress: false },
+      { where: { id } },
+    );
+    return result;
+  }
+
+  async updateScore(score: IMatchScore, id: number):Promise<number> {
+    const [result] = await this._model.update(
+      { homeTeamGoals: score.homeTeamGoals, awayTeamGoals: score.awayTeamGoals },
       { where: { id } },
     );
     return result;
