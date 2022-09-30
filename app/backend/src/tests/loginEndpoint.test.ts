@@ -92,7 +92,7 @@ describe('Test login endpoint', () => {
 
   describe('Valid token', () => {
     before(() => {
-      Sinon.stub(jwt, 'verify').resolves({ data: login.validUser})
+      Sinon.stub(jwt, 'verify').returns({ data: login.validUser} as any)
       Sinon.stub(User, 'findOne').resolves(user.validUser as User)
     })
     after(() => {
@@ -103,11 +103,11 @@ describe('Test login endpoint', () => {
     it('should return status 200 and role as user', async () => {
       const response = await request(app)
       .get('/login/validate')
-      .set('authorization', 'r3fsdfsdfsf2342')
+      .set('Authorization', 'r3fsdfsdfsf2342')
       .send();
-      expect(response).to.have.status(401)
-      expect(response.body.message).to.eql({role: user.validUser.role})
-      console.log(response)
+      
+      expect(response).to.have.status(200)
+      expect(response.body).to.eql({role: user.validUser.role})
 
     })
   })
