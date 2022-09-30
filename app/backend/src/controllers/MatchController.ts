@@ -17,4 +17,14 @@ export default class MatchController {
       next(error);
     }
   };
+
+  create: RequestHandler = async (req, res, next) => {
+    try {
+      const match = req.body;
+      const newMatch = await this.service.create(match);
+      return res.status(201).json(newMatch);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

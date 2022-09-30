@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from 'express';
 import { JsonWebTokenError } from 'jsonwebtoken';
-import CustomError from './CustomError';
+import CustomError from '../interfaces/CustomError';
 
 const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   if (error instanceof CustomError) {

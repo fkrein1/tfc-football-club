@@ -1,5 +1,5 @@
 import TeamModel from '../models/TeamModel';
-import CustomError from '../middlewares/CustomError';
+import CustomError from '../interfaces/CustomError';
 
 export default class TeamService {
   constructor(private model: TeamModel = new TeamModel()) {}

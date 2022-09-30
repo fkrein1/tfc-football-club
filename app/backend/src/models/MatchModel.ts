@@ -1,6 +1,6 @@
 import Match from '../database/models/Match';
 import Team from '../database/models/Team';
-import { IMatch } from '../interfaces/IMatch';
+import { IMatch, IMatchInput } from '../interfaces/IMatch';
 
 export default class MatchModel {
   constructor(private _model: typeof Match = Match) {}
@@ -22,6 +22,17 @@ export default class MatchModel {
         { model: Team, as: 'teamAway', attributes: ['teamName'] },
       ],
       where: { inProgress: progress },
+    });
+    return result;
+  }
+
+  async create(match: IMatchInput): Promise<IMatch> {
+    const result = await this._model.create({
+      homeTeam: match.homeTeam,
+      homeTeamGoals: match.homeTeamGoals,
+      awayTeam: match.awayTeam,
+      awayTeamGoals: match.awayTeamGoals,
+      inProgress: true,
     });
     return result;
   }

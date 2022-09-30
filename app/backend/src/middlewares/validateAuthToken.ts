@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import { verify } from 'jsonwebtoken';
-import CustomError from './CustomError';
+import CustomError from '../interfaces/CustomError';
 
 const validateAuthToken: RequestHandler = async (req, _res, next) => {
   const { authorization } = req.headers;
