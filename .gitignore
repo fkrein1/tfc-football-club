@@ -7,3 +7,5 @@ coverage
 front.eval
 back.eval
 .vscode*
+.DS_Store
+**/.DS_Store
