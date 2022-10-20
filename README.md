@@ -12,7 +12,8 @@ To run locally clone the repository and run the following commands:
 ```
 $ npm run compose:up
 ```
+<a href="https://tfc-deploy.vercel.app/leaderboard">Demo</a>
 <br>
 <br>
-<img src="./tfc.png"/>
+<a href="https://tfc-deploy.vercel.app/leaderboard"><img src="./tfc.png"/></a>
 
