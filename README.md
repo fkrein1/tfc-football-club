@@ -10,7 +10,7 @@ To run locally clone the repository and run the following commands:
 <br>
 
 ```
-$ npm run compose:up
+$ docker-compose up -d
 ```
 <a href="https://tfc-deploy.vercel.app/leaderboard">Demo</a>
 <br>
