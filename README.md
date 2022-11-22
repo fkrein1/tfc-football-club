@@ -13,6 +13,5 @@ To run locally clone the repository and run the following commands:
 $ docker-compose up -d
 ```
 <br>
-<br>
 <a href="https://tfc-deploy.vercel.app/leaderboard"><img src="./tfc.png"/></a>
 
